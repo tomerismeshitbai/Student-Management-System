@@ -7106,3 +7106,321 @@ CREATE TABLE "new__students_student" ("id" integer NOT NULL PRIMARY KEY AUTOINCR
 INSERT INTO "new__students_student" ("id", "dob", "registration_date", "user_id") SELECT "id", "dob", "registration_date", NULL FROM "students_student"; (params ())
 DROP TABLE "students_student"; (params ())
 ALTER TABLE "new__students_student" RENAME TO "students_student"; (params ())
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "hour" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(64) NOT NULL, "month_of_year" varchar(64) NOT NULL); (params None)
+(0.000) CREATE TABLE "django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "hour" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(64) NOT NULL, "month_of_year" varchar(64) NOT NULL); args=None; alias=default
+CREATE TABLE "django_celery_beat_intervalschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "every" integer NOT NULL, "period" varchar(24) NOT NULL); (params None)
+(0.000) CREATE TABLE "django_celery_beat_intervalschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "every" integer NOT NULL, "period" varchar(24) NOT NULL); args=None; alias=default
+CREATE TABLE "django_celery_beat_periodictask" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(200) NOT NULL UNIQUE, "task" varchar(200) NOT NULL, "args" text NOT NULL, "kwargs" text NOT NULL, "queue" varchar(200) NULL, "exchange" varchar(200) NULL, "routing_key" varchar(200) NULL, "expires" datetime NULL, "enabled" bool NOT NULL, "last_run_at" datetime NULL, "total_run_count" integer unsigned NOT NULL CHECK ("total_run_count" >= 0), "date_changed" datetime NOT NULL, "description" text NOT NULL, "crontab_id" integer NULL REFERENCES "django_celery_beat_crontabschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "interval_id" integer NULL REFERENCES "django_celery_beat_intervalschedule" ("id") DEFERRABLE INITIALLY DEFERRED); (params None)
+(0.000) CREATE TABLE "django_celery_beat_periodictask" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(200) NOT NULL UNIQUE, "task" varchar(200) NOT NULL, "args" text NOT NULL, "kwargs" text NOT NULL, "queue" varchar(200) NULL, "exchange" varchar(200) NULL, "routing_key" varchar(200) NULL, "expires" datetime NULL, "enabled" bool NOT NULL, "last_run_at" datetime NULL, "total_run_count" integer unsigned NOT NULL CHECK ("total_run_count" >= 0), "date_changed" datetime NOT NULL, "description" text NOT NULL, "crontab_id" integer NULL REFERENCES "django_celery_beat_crontabschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "interval_id" integer NULL REFERENCES "django_celery_beat_intervalschedule" ("id") DEFERRABLE INITIALLY DEFERRED); args=None; alias=default
+CREATE TABLE "django_celery_beat_periodictasks" ("ident" smallint NOT NULL PRIMARY KEY, "last_update" datetime NOT NULL); (params None)
+(0.000) CREATE TABLE "django_celery_beat_periodictasks" ("ident" smallint NOT NULL PRIMARY KEY, "last_update" datetime NOT NULL); args=None; alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+CREATE INDEX "django_celery_beat_periodictask_crontab_id_d3cba168" ON "django_celery_beat_periodictask" ("crontab_id"); (params None)
+(0.000) CREATE INDEX "django_celery_beat_periodictask_crontab_id_d3cba168" ON "django_celery_beat_periodictask" ("crontab_id"); args=None; alias=default
+CREATE INDEX "django_celery_beat_periodictask_interval_id_a8ca27da" ON "django_celery_beat_periodictask" ("interval_id"); (params None)
+(0.000) CREATE INDEX "django_celery_beat_periodictask_interval_id_a8ca27da" ON "django_celery_beat_periodictask" ("interval_id"); args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0001_initial', '2024-11-19 09:56:11.444089') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0001_initial', '2024-11-19 09:56:11.444089'); alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_celery_beat_solarschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "event" varchar(24) NOT NULL, "latitude" decimal NOT NULL, "longitude" decimal NOT NULL); (params None)
+(0.000) CREATE TABLE "django_celery_beat_solarschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "event" varchar(24) NOT NULL, "latitude" decimal NOT NULL, "longitude" decimal NOT NULL); args=None; alias=default
+ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "solar_id" integer NULL REFERENCES "django_celery_beat_solarschedule" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.000) ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "solar_id" integer NULL REFERENCES "django_celery_beat_solarschedule" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+CREATE INDEX "django_celery_beat_periodictask_solar_id_a87ce72c" ON "django_celery_beat_periodictask" ("solar_id"); (params None)
+(0.000) CREATE INDEX "django_celery_beat_periodictask_solar_id_a87ce72c" ON "django_celery_beat_periodictask" ("solar_id"); args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.016) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0002_auto_20161118_0346', '2024-11-19 09:56:11.464231') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0002_auto_20161118_0346', '2024-11-19 09:56:11.464231'); alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE UNIQUE INDEX "django_celery_beat_solarschedule_event_latitude_longitude_ba64999a_uniq" ON "django_celery_beat_solarschedule" ("event", "latitude", "longitude"); (params ())
+(0.000) CREATE UNIQUE INDEX "django_celery_beat_solarschedule_event_latitude_longitude_ba64999a_uniq" ON "django_celery_beat_solarschedule" ("event", "latitude", "longitude"); args=(); alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0003_auto_20161209_0049', '2024-11-19 09:56:11.480232') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0003_auto_20161209_0049', '2024-11-19 09:56:11.480232'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.016) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0004_auto_20170221_0000', '2024-11-19 09:56:11.490229') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0004_auto_20170221_0000', '2024-11-19 09:56:11.490229'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.015) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0005_add_solarschedule_events_choices', '2024-11-19 09:56:11.501262') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0005_add_solarschedule_events_choices', '2024-11-19 09:56:11.501262'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "hour" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(64) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "hour" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(64) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone") SELECT "id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", 'UTC' FROM "django_celery_beat_crontabschedule"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone") SELECT "id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", 'UTC' FROM "django_celery_beat_crontabschedule"; args=(); alias=default
+DROP TABLE "django_celery_beat_crontabschedule"; (params ())
+(0.000) DROP TABLE "django_celery_beat_crontabschedule"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; args=(); alias=default
+CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "hour" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL, "day_of_month" varchar(124) NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "hour" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL, "day_of_month" varchar(124) NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "month_of_year", "timezone", "day_of_month") SELECT "id", "minute", "hour", "day_of_week", "month_of_year", "timezone", "day_of_month" FROM "django_celery_beat_crontabschedule"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "month_of_year", "timezone", "day_of_month") SELECT "id", "minute", "hour", "day_of_week", "month_of_year", "timezone", "day_of_month" FROM "django_celery_beat_crontabschedule"; args=(); alias=default
+DROP TABLE "django_celery_beat_crontabschedule"; (params ())
+(0.000) DROP TABLE "django_celery_beat_crontabschedule"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; args=(); alias=default
+CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL, "hour" varchar(96) NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(64) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL, "hour" varchar(96) NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "day_of_week", "day_of_month", "month_of_year", "timezone", "hour") SELECT "id", "minute", "day_of_week", "day_of_month", "month_of_year", "timezone", "hour" FROM "django_celery_beat_crontabschedule"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "day_of_week", "day_of_month", "month_of_year", "timezone", "hour") SELECT "id", "minute", "day_of_week", "day_of_month", "month_of_year", "timezone", "hour" FROM "django_celery_beat_crontabschedule"; args=(); alias=default
+DROP TABLE "django_celery_beat_crontabschedule"; (params ())
+(0.000) DROP TABLE "django_celery_beat_crontabschedule"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; args=(); alias=default
+CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "hour" varchar(96) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL, "minute" varchar(240) NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "hour" varchar(96) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL, "minute" varchar(240) NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone", "minute") SELECT "id", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone", "minute" FROM "django_celery_beat_crontabschedule"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone", "minute") SELECT "id", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone", "minute" FROM "django_celery_beat_crontabschedule"; args=(); alias=default
+DROP TABLE "django_celery_beat_crontabschedule"; (params ())
+(0.000) DROP TABLE "django_celery_beat_crontabschedule"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; args=(); alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0006_auto_20180322_0932', '2024-11-19 09:56:11.554267') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0006_auto_20180322_0932', '2024-11-19 09:56:11.554267'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "new__django_celery_beat_periodictask" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(200) NOT NULL UNIQUE, "task" varchar(200) NOT NULL, "args" text NOT NULL, "kwargs" text NOT NULL, "queue" varchar(200) NULL, "exchange" varchar(200) NULL, "routing_key" varchar(200) NULL, "expires" datetime NULL, "enabled" bool NOT NULL, "last_run_at" datetime NULL, "total_run_count" integer unsigned NOT NULL CHECK ("total_run_count" >= 0), "date_changed" datetime NOT NULL, "description" text NOT NULL, "crontab_id" integer NULL REFERENCES "django_celery_beat_crontabschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "interval_id" integer NULL REFERENCES "django_celery_beat_intervalschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "solar_id" integer NULL REFERENCES "django_celery_beat_solarschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "one_off" bool NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_periodictask" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(200) NOT NULL UNIQUE, "task" varchar(200) NOT NULL, "args" text NOT NULL, "kwargs" text NOT NULL, "queue" varchar(200) NULL, "exchange" varchar(200) NULL, "routing_key" varchar(200) NULL, "expires" datetime NULL, "enabled" bool NOT NULL, "last_run_at" datetime NULL, "total_run_count" integer unsigned NOT NULL CHECK ("total_run_count" >= 0), "date_changed" datetime NOT NULL, "description" text NOT NULL, "crontab_id" integer NULL REFERENCES "django_celery_beat_crontabschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "interval_id" integer NULL REFERENCES "django_celery_beat_intervalschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "solar_id" integer NULL REFERENCES "django_celery_beat_solarschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "one_off" bool NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_periodictask" ("id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", "one_off") SELECT "id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", 0 FROM "django_celery_beat_periodictask"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_periodictask" ("id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", "one_off") SELECT "id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", 0 FROM "django_celery_beat_periodictask"; args=(); alias=default
+DROP TABLE "django_celery_beat_periodictask"; (params ())
+(0.000) DROP TABLE "django_celery_beat_periodictask"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_periodictask" RENAME TO "django_celery_beat_periodictask"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_periodictask" RENAME TO "django_celery_beat_periodictask"; args=(); alias=default
+CREATE INDEX "django_celery_beat_periodictask_crontab_id_d3cba168" ON "django_celery_beat_periodictask" ("crontab_id"); (params ())
+(0.000) CREATE INDEX "django_celery_beat_periodictask_crontab_id_d3cba168" ON "django_celery_beat_periodictask" ("crontab_id"); args=(); alias=default
+CREATE INDEX "django_celery_beat_periodictask_interval_id_a8ca27da" ON "django_celery_beat_periodictask" ("interval_id"); (params ())
+(0.000) CREATE INDEX "django_celery_beat_periodictask_interval_id_a8ca27da" ON "django_celery_beat_periodictask" ("interval_id"); args=(); alias=default
+CREATE INDEX "django_celery_beat_periodictask_solar_id_a87ce72c" ON "django_celery_beat_periodictask" ("solar_id"); (params ())
+(0.000) CREATE INDEX "django_celery_beat_periodictask_solar_id_a87ce72c" ON "django_celery_beat_periodictask" ("solar_id"); args=(); alias=default
+ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "start_time" datetime NULL; (params None)
+(0.000) ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "start_time" datetime NULL; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0007_auto_20180521_0826', '2024-11-19 09:56:11.610812') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0007_auto_20180521_0826', '2024-11-19 09:56:11.610812'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0008_auto_20180914_1922', '2024-11-19 09:56:11.650778') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0008_auto_20180914_1922', '2024-11-19 09:56:11.650778'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.016) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0006_auto_20180210_1226', '2024-11-19 09:56:11.676777') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0006_auto_20180210_1226', '2024-11-19 09:56:11.676777'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "priority" integer unsigned NULL CHECK ("priority" >= 0); (params None)
+(0.000) ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "priority" integer unsigned NULL CHECK ("priority" >= 0); args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0006_periodictask_priority', '2024-11-19 09:56:11.694517') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0006_periodictask_priority', '2024-11-19 09:56:11.694517'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "new__django_celery_beat_periodictask" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(200) NOT NULL UNIQUE, "task" varchar(200) NOT NULL, "args" text NOT NULL, "kwargs" text NOT NULL, "queue" varchar(200) NULL, "exchange" varchar(200) NULL, "routing_key" varchar(200) NULL, "expires" datetime NULL, "enabled" bool NOT NULL, "last_run_at" datetime NULL, "total_run_count" integer unsigned NOT NULL CHECK ("total_run_count" >= 0), "date_changed" datetime NOT NULL, "description" text NOT NULL, "crontab_id" integer NULL REFERENCES "django_celery_beat_crontabschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "interval_id" integer NULL REFERENCES "django_celery_beat_intervalschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "solar_id" integer NULL REFERENCES "django_celery_beat_solarschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "one_off" bool NOT NULL, "start_time" datetime NULL, "priority" integer unsigned NULL CHECK ("priority" >= 0), "headers" text NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_periodictask" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(200) NOT NULL UNIQUE, "task" varchar(200) NOT NULL, "args" text NOT NULL, "kwargs" text NOT NULL, "queue" varchar(200) NULL, "exchange" varchar(200) NULL, "routing_key" varchar(200) NULL, "expires" datetime NULL, "enabled" bool NOT NULL, "last_run_at" datetime NULL, "total_run_count" integer unsigned NOT NULL CHECK ("total_run_count" >= 0), "date_changed" datetime NOT NULL, "description" text NOT NULL, "crontab_id" integer NULL REFERENCES "django_celery_beat_crontabschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "interval_id" integer NULL REFERENCES "django_celery_beat_intervalschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "solar_id" integer NULL REFERENCES "django_celery_beat_solarschedule" ("id") DEFERRABLE INITIALLY DEFERRED, "one_off" bool NOT NULL, "start_time" datetime NULL, "priority" integer unsigned NULL CHECK ("priority" >= 0), "headers" text NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_periodictask" ("id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", "one_off", "start_time", "priority", "headers") SELECT "id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", "one_off", "start_time", "priority", '{}' FROM "django_celery_beat_periodictask"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_periodictask" ("id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", "one_off", "start_time", "priority", "headers") SELECT "id", "name", "task", "args", "kwargs", "queue", "exchange", "routing_key", "expires", "enabled", "last_run_at", "total_run_count", "date_changed", "description", "crontab_id", "interval_id", "solar_id", "one_off", "start_time", "priority", '{}' FROM "django_celery_beat_periodictask"; args=(); alias=default
+DROP TABLE "django_celery_beat_periodictask"; (params ())
+(0.000) DROP TABLE "django_celery_beat_periodictask"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_periodictask" RENAME TO "django_celery_beat_periodictask"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_periodictask" RENAME TO "django_celery_beat_periodictask"; args=(); alias=default
+CREATE INDEX "django_celery_beat_periodictask_crontab_id_d3cba168" ON "django_celery_beat_periodictask" ("crontab_id"); (params ())
+(0.000) CREATE INDEX "django_celery_beat_periodictask_crontab_id_d3cba168" ON "django_celery_beat_periodictask" ("crontab_id"); args=(); alias=default
+CREATE INDEX "django_celery_beat_periodictask_interval_id_a8ca27da" ON "django_celery_beat_periodictask" ("interval_id"); (params ())
+(0.000) CREATE INDEX "django_celery_beat_periodictask_interval_id_a8ca27da" ON "django_celery_beat_periodictask" ("interval_id"); args=(); alias=default
+CREATE INDEX "django_celery_beat_periodictask_solar_id_a87ce72c" ON "django_celery_beat_periodictask" ("solar_id"); (params ())
+(0.000) CREATE INDEX "django_celery_beat_periodictask_solar_id_a87ce72c" ON "django_celery_beat_periodictask" ("solar_id"); args=(); alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0009_periodictask_headers', '2024-11-19 09:56:11.715705') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0009_periodictask_headers', '2024-11-19 09:56:11.715705'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.016) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0010_auto_20190429_0326', '2024-11-19 09:56:11.895859') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0010_auto_20190429_0326', '2024-11-19 09:56:11.895859'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "django_celery_beat_clockedschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "clocked_time" datetime NOT NULL, "enabled" bool NOT NULL); (params None)
+(0.000) CREATE TABLE "django_celery_beat_clockedschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "clocked_time" datetime NOT NULL, "enabled" bool NOT NULL); args=None; alias=default
+ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "clocked_id" integer NULL REFERENCES "django_celery_beat_clockedschedule" ("id") DEFERRABLE INITIALLY DEFERRED; (params None)
+(0.000) ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "clocked_id" integer NULL REFERENCES "django_celery_beat_clockedschedule" ("id") DEFERRABLE INITIALLY DEFERRED; args=None; alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+CREATE INDEX "django_celery_beat_periodictask_clocked_id_47a69f82" ON "django_celery_beat_periodictask" ("clocked_id"); (params None)
+(0.000) CREATE INDEX "django_celery_beat_periodictask_clocked_id_47a69f82" ON "django_celery_beat_periodictask" ("clocked_id"); args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0011_auto_20190508_0153', '2024-11-19 09:56:11.919984') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0011_auto_20190508_0153', '2024-11-19 09:56:11.919984'); alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "expire_seconds" integer unsigned NULL CHECK ("expire_seconds" >= 0); (params None)
+(0.000) ALTER TABLE "django_celery_beat_periodictask" ADD COLUMN "expire_seconds" integer unsigned NULL CHECK ("expire_seconds" >= 0); args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0012_periodictask_expire_seconds', '2024-11-19 09:56:11.940117') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0012_periodictask_expire_seconds', '2024-11-19 09:56:11.940117'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(240) NOT NULL, "hour" varchar(96) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(240) NOT NULL, "hour" varchar(96) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone") SELECT "id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone" FROM "django_celery_beat_crontabschedule"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone") SELECT "id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone" FROM "django_celery_beat_crontabschedule"; args=(); alias=default
+DROP TABLE "django_celery_beat_crontabschedule"; (params ())
+(0.000) DROP TABLE "django_celery_beat_crontabschedule"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; args=(); alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0013_auto_20200609_0727', '2024-11-19 09:56:11.958973') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0013_auto_20200609_0727', '2024-11-19 09:56:11.958973'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+ALTER TABLE "django_celery_beat_clockedschedule" DROP COLUMN "enabled"; (params ())
+(0.000) ALTER TABLE "django_celery_beat_clockedschedule" DROP COLUMN "enabled"; args=(); alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0014_remove_clockedschedule_enabled', '2024-11-19 09:56:11.973798') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0014_remove_clockedschedule_enabled', '2024-11-19 09:56:11.973798'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0015_edit_solarschedule_events_choices', '2024-11-19 09:56:11.982767') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0015_edit_solarschedule_events_choices', '2024-11-19 09:56:11.982767'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(240) NOT NULL, "hour" varchar(96) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL); (params None)
+(0.000) CREATE TABLE "new__django_celery_beat_crontabschedule" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "minute" varchar(240) NOT NULL, "hour" varchar(96) NOT NULL, "day_of_week" varchar(64) NOT NULL, "day_of_month" varchar(124) NOT NULL, "month_of_year" varchar(64) NOT NULL, "timezone" varchar(63) NOT NULL); args=None; alias=default
+INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone") SELECT "id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone" FROM "django_celery_beat_crontabschedule"; (params ())
+(0.000) INSERT INTO "new__django_celery_beat_crontabschedule" ("id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone") SELECT "id", "minute", "hour", "day_of_week", "day_of_month", "month_of_year", "timezone" FROM "django_celery_beat_crontabschedule"; args=(); alias=default
+DROP TABLE "django_celery_beat_crontabschedule"; (params ())
+(0.000) DROP TABLE "django_celery_beat_crontabschedule"; args=(); alias=default
+ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; (params ())
+(0.000) ALTER TABLE "new__django_celery_beat_crontabschedule" RENAME TO "django_celery_beat_crontabschedule"; args=(); alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0016_alter_crontabschedule_timezone', '2024-11-19 09:56:12.006872') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0016_alter_crontabschedule_timezone', '2024-11-19 09:56:12.006872'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.016) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0017_alter_crontabschedule_month_of_year', '2024-11-19 09:56:12.023876') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0017_alter_crontabschedule_month_of_year', '2024-11-19 09:56:12.023876'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.016) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0018_improve_crontab_helptext', '2024-11-19 09:56:12.039875') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0018_improve_crontab_helptext', '2024-11-19 09:56:12.039875'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.015) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) PRAGMA foreign_keys = OFF; args=None; alias=default
+(0.000) PRAGMA foreign_keys; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "django_migrations" ("app", "name", "applied") VALUES ('django_celery_beat', '0019_alter_periodictasks_options', '2024-11-19 09:56:12.050217') RETURNING "django_migrations"."id"; args=('django_celery_beat', '0019_alter_periodictasks_options', '2024-11-19 09:56:12.050217'); alias=default
+(0.000) PRAGMA foreign_key_check; args=None; alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) PRAGMA foreign_keys = ON; args=None; alias=default
+(0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'admin' AND "django_content_type"."model" IN ('logentry')); args=('admin', 'logentry'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (1) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(1,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'admin'; args=('admin',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'auth' AND "django_content_type"."model" IN ('permission', 'group')); args=('auth', 'permission', 'group'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (2, 3) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(2, 3); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'auth'; args=('auth',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'contenttypes' AND "django_content_type"."model" IN ('contenttype')); args=('contenttypes', 'contenttype'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (4) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(4,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'contenttypes'; args=('contenttypes',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'sessions' AND "django_content_type"."model" IN ('session')); args=('sessions', 'session'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (5) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(5,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'sessions'; args=('sessions',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'django_celery_beat'; args=('django_celery_beat',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.016) INSERT INTO "django_content_type" ("app_label", "model") VALUES ('django_celery_beat', 'crontabschedule'), ('django_celery_beat', 'intervalschedule'), ('django_celery_beat', 'periodictask'), ('django_celery_beat', 'periodictasks'), ('django_celery_beat', 'solarschedule'), ('django_celery_beat', 'clockedschedule') RETURNING "django_content_type"."id"; args=('django_celery_beat', 'crontabschedule', 'django_celery_beat', 'intervalschedule', 'django_celery_beat', 'periodictask', 'django_celery_beat', 'periodictasks', 'django_celery_beat', 'solarschedule', 'django_celery_beat', 'clockedschedule'); alias=default
+(0.000) COMMIT; args=None; alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'django_celery_beat' AND "django_content_type"."model" IN ('solarschedule', 'intervalschedule', 'periodictask', 'periodictasks', 'crontabschedule', 'clockedschedule')); args=('django_celery_beat', 'solarschedule', 'intervalschedule', 'periodictask', 'periodictasks', 'crontabschedule', 'clockedschedule'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (12, 13, 14, 15, 16, 17) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(12, 13, 14, 15, 16, 17); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO "auth_permission" ("name", "content_type_id", "codename") VALUES ('Can add crontab', 12, 'add_crontabschedule'), ('Can change crontab', 12, 'change_crontabschedule'), ('Can delete crontab', 12, 'delete_crontabschedule'), ('Can view crontab', 12, 'view_crontabschedule'), ('Can add interval', 13, 'add_intervalschedule'), ('Can change interval', 13, 'change_intervalschedule'), ('Can delete interval', 13, 'delete_intervalschedule'), ('Can view interval', 13, 'view_intervalschedule'), ('Can add periodic task', 14, 'add_periodictask'), ('Can change periodic task', 14, 'change_periodictask'), ('Can delete periodic task', 14, 'delete_periodictask'), ('Can view periodic task', 14, 'view_periodictask'), ('Can add periodic task track', 15, 'add_periodictasks'), ('Can change periodic task track', 15, 'change_periodictasks'), ('Can delete periodic task track', 15, 'delete_periodictasks'), ('Can view periodic task track', 15, 'view_periodictasks'), ('Can add solar event', 16, 'add_solarschedule'), ('Can change solar event', 16, 'change_solarschedule'), ('Can delete solar event', 16, 'delete_solarschedule'), ('Can view solar event', 16, 'view_solarschedule'), ('Can add clocked', 17, 'add_clockedschedule'), ('Can change clocked', 17, 'change_clockedschedule'), ('Can delete clocked', 17, 'delete_clockedschedule'), ('Can view clocked', 17, 'view_clockedschedule') RETURNING "auth_permission"."id"; args=('Can add crontab', 12, 'add_crontabschedule', 'Can change crontab', 12, 'change_crontabschedule', 'Can delete crontab', 12, 'delete_crontabschedule', 'Can view crontab', 12, 'view_crontabschedule', 'Can add interval', 13, 'add_intervalschedule', 'Can change interval', 13, 'change_intervalschedule', 'Can delete interval', 13, 'delete_intervalschedule', 'Can view interval', 13, 'view_intervalschedule', 'Can add periodic task', 14, 'add_periodictask', 'Can change periodic task', 14, 'change_periodictask', 'Can delete periodic task', 14, 'delete_periodictask', 'Can view periodic task', 14, 'view_periodictask', 'Can add periodic task track', 15, 'add_periodictasks', 'Can change periodic task track', 15, 'change_periodictasks', 'Can delete periodic task track', 15, 'delete_periodictasks', 'Can view periodic task track', 15, 'view_periodictasks', 'Can add solar event', 16, 'add_solarschedule', 'Can change solar event', 16, 'change_solarschedule', 'Can delete solar event', 16, 'delete_solarschedule', 'Can view solar event', 16, 'view_solarschedule', 'Can add clocked', 17, 'add_clockedschedule', 'Can change clocked', 17, 'change_clockedschedule', 'Can delete clocked', 17, 'delete_clockedschedule', 'Can view clocked', 17, 'view_clockedschedule'); alias=default
+(0.015) COMMIT; args=None; alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'django_celery_beat'; args=('django_celery_beat',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'users'; args=('users',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'users' AND "django_content_type"."model" IN ('user')); args=('users', 'user'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (6) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(6,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'users'; args=('users',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'students'; args=('students',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'students' AND "django_content_type"."model" IN ('student')); args=('students', 'student'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (7) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(7,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'students'; args=('students',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'courses'; args=('courses',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'courses' AND "django_content_type"."model" IN ('enrollment', 'course')); args=('courses', 'enrollment', 'course'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (8, 9) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(8, 9); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'courses'; args=('courses',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'grades'; args=('grades',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'grades' AND "django_content_type"."model" IN ('grade')); args=('grades', 'grade'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (10) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(10,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'grades'; args=('grades',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'attendance'; args=('attendance',); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'attendance' AND "django_content_type"."model" IN ('attendance')); args=('attendance', 'attendance'); alias=default
+(0.000) SELECT "auth_permission"."content_type_id", "auth_permission"."codename" FROM "auth_permission" INNER JOIN "django_content_type" ON ("auth_permission"."content_type_id" = "django_content_type"."id") WHERE "auth_permission"."content_type_id" IN (11) ORDER BY "django_content_type"."app_label" ASC, "django_content_type"."model" ASC, "auth_permission"."codename" ASC; args=(11,); alias=default
+(0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE "django_content_type"."app_label" = 'attendance'; args=('attendance',); alias=default
