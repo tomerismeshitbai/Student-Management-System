@@ -1,6 +1,10 @@
 from django.db import models
 from users.models import User
 from students.models import Student
+import logging
+
+logger = logging.getLogger('myapp')
+
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
@@ -20,3 +24,8 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return f"{self.student.user.username} enrolled in {self.course.name}"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            logger.info(f'Student {self.student.user.username} enrolled in course {self.course.name}')
+        super().save(*args, **kwargs)

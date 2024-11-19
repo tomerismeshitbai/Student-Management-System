@@ -2,12 +2,22 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import User
 from .serializers import UserSerializer
-from .permissions import IsAdmin, IsTeacher, IsStudent
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
-@method_decorator(cache_page(60*15), name='dispatch')
+token_auth = openapi.Parameter(
+    'Authorization', openapi.IN_HEADER, description="Bearer Token", type=openapi.TYPE_STRING
+)
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(manual_parameters=[token_auth])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(manual_parameters=[token_auth])
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)

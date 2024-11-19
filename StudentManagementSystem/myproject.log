@@ -1,0 +1,74 @@
+INFO 2024-11-19 15:57:33,408 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 15:57:40,251 autoreload C:\Users\Томирис\Desktop\Student Management System\StudentManagementSystem\StudentManagementSystem\settings.py changed, reloading.
+INFO 2024-11-19 15:57:41,608 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 15:57:46,211 autoreload C:\Users\Томирис\Desktop\Student Management System\StudentManagementSystem\StudentManagementSystem\settings.py changed, reloading.
+INFO 2024-11-19 15:57:47,463 autoreload Watching for file changes with StatReloader
+INFO 2024-11-19 15:58:12,434 basehttp "GET /docs/ HTTP/1.1" 200 2214
+ERROR 2024-11-19 15:58:12,780 log Internal Server Error: /docs/
+Traceback (most recent call last):
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\views.py", line 96, in get
+    schema = generator.get_schema(request, self.public)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\generators.py", line 276, in get_schema
+    paths, prefix = self.get_paths(endpoints, components, request, public)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\generators.py", line 482, in get_paths
+    operation = self.get_operation(view, path, prefix, method, components, request)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\generators.py", line 524, in get_operation
+    operation = view_inspector.get_operation(operation_keys)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\view.py", line 45, in get_operation
+    responses = self.get_responses()
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\view.py", line 180, in get_responses
+    response_serializers = self.get_response_serializers()
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\view.py", line 235, in get_response_serializers
+    responses = self.get_default_responses()
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\view.py", line 211, in get_default_responses
+    default_schema = self.serializer_to_schema(default_schema) or ''
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\base.py", line 438, in serializer_to_schema
+    return self.probe_inspectors(
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\base.py", line 110, in probe_inspectors
+    result = method(obj, **kwargs)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\field.py", line 42, in get_schema
+    return self.probe_field_inspectors(serializer, openapi.Schema, self.use_definitions)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\base.py", line 228, in probe_field_inspectors
+    return self.probe_inspectors(
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\base.py", line 110, in probe_inspectors
+    result = method(obj, **kwargs)
+  File "C:\Users\Томирис\Desktop\Student Management System\myenv\lib\site-packages\drf_yasg\inspectors\field.py", line 141, in field_to_swagger_object
+    raise SwaggerGenerationError(
+drf_yasg.errors.SwaggerGenerationError: Schema for <class 'users.serializers.UserSerializer'> would override distinct serializer <class 'djoser.serializers.UserSerializer'> because they implicitly share the same ref_name; explicitly set the ref_name attribute on both serializers' Meta classes
+ERROR 2024-11-19 15:58:12,793 basehttp "GET /docs/?format=openapi HTTP/1.1" 500 194605
+INFO 2024-11-19 15:58:16,344 basehttp "GET /admin/ HTTP/1.1" 200 18454
+INFO 2024-11-19 15:58:24,277 basehttp "GET /admin/courses/enrollment/add/ HTTP/1.1" 200 17652
+INFO 2024-11-19 15:58:24,329 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-11-19 15:58:24,415 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8794
+INFO 2024-11-19 15:58:24,424 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11564
+INFO 2024-11-19 15:58:24,442 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2024-11-19 15:58:24,481 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2024-11-19 15:58:31,164 basehttp "GET /admin/courses/course/add/ HTTP/1.1" 200 17477
+INFO 2024-11-19 15:58:31,212 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-11-19 15:58:31,274 basehttp "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2024-11-19 15:58:46,889 basehttp "POST /admin/courses/course/add/ HTTP/1.1" 302 0
+INFO 2024-11-19 15:58:46,945 basehttp "GET /admin/courses/course/ HTTP/1.1" 200 15782
+INFO 2024-11-19 15:58:46,989 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-11-19 15:58:47,041 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2024-11-19 15:58:49,931 basehttp "GET /admin/courses/enrollment/add/ HTTP/1.1" 200 17689
+INFO 2024-11-19 15:58:49,982 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-11-19 15:58:55,011 models Student tomeris enrolled in course django
+INFO 2024-11-19 15:58:55,023 basehttp "POST /admin/courses/enrollment/add/ HTTP/1.1" 302 0
+INFO 2024-11-19 15:58:55,056 basehttp "GET /admin/courses/enrollment/ HTTP/1.1" 200 15934
+INFO 2024-11-19 15:58:55,106 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342

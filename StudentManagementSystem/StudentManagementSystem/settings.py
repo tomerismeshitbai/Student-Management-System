@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_celery_beat',
     'rest_framework',
+    'drf_yasg',
     'djoser',
     'users',
     'students',
@@ -172,17 +173,38 @@ CACHES = {
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': False, 
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
-        'file': {
+        'console': {
             'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'student_management_debug.log',
+            'filename': 'myproject.log',
+            'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'myapp': {
+            'handlers': ['console', 'file'],
             'level': 'DEBUG',
             'propagate': True,
         },

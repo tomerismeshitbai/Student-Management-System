@@ -1,6 +1,9 @@
 from django.db import models
 from students.models import Student
 from courses.models import Course
+import logging
+
+logger = logging.getLogger('myapp')
 
 class Attendance(models.Model):
     STATUS_CHOICES = [
@@ -15,3 +18,8 @@ class Attendance(models.Model):
 
     def __str__(self):
         return f"{self.student.user.username} - {self.course.name}: {self.status}"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            logger.info(f'Attendance marked for {self.student.user.username} in course {self.course.name} on {self.date} as {self.status}')
+        super().save(*args, **kwargs)
